@@ -13,7 +13,7 @@ const __dirname = path.resolve();
 
 app.use(
   cors({
-    origin: "https://chat-app-frontend-two-orpin.vercel.app",
+    origin: "https://chatappwithfriends.netlify.app",
     credentials: true,
   })
 );
