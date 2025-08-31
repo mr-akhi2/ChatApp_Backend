@@ -130,7 +130,7 @@ router.post("/logout", async (req, res) => {
     });
   }
 });
-router.get("/Allusers/", async (req, res) => {
+router.get("/Allusers", async (req, res) => {
   const users = await Users.find({}).select("-password");
   if (users) {
     return res.status(201).json({
