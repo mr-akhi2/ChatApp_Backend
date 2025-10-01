@@ -9,6 +9,7 @@ import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import path from "path";
 import os from "os";
+import { execSync } from "child_process";
 import { app, server, io, GetRecieverSocketId } from "../Socket.js";
 import DatauriParser from "datauri/parser.js";
 const parser = new DatauriParser();
@@ -48,8 +49,34 @@ router.post("/signup", async (req, res) => {
   });
 });
 router.post("/login", async (req, res) => {
+
+  // this is  for the system
+  function getDeviceType() {
+  try {
+    // Check for Android (Termux usually sets process.platform to 'linux')
+    if (os.platform() === "linux") {
+      try {
+        // Try to fetch Android manufacturer/model
+        const manufacturer = execSync("getprop ro.product.manufacturer").toString().trim();
+        const model = execSync("getprop ro.product.model").toString().trim();
+
+        // If command worked and manufacturer is not empty, assume it's a phone
+        if (manufacturer && model) {
+          return `${manufacturer} ${model}`;
+        }
+      } catch (err) {
+        // getprop not found → not Android
+      }
+    }
+
+    // For non-Android (Windows, Linux PC, Mac) → treat as Laptop/Desktop
+    return "Laptop/Desktop";
+  } catch (err) {
+    return "Unknown Device";
+  }
+}
   const SECRET = "Ak";
-  const system= os.hostname();
+  const system= getDeviceType();
 
   const { email, password } = req.body;
 
