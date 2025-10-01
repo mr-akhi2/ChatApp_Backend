@@ -8,7 +8,7 @@ import Message from "../models/message.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import path from "path";
-import os from "os;
+import os from "os";
 import { app, server, io, GetRecieverSocketId } from "../Socket.js";
 import DatauriParser from "datauri/parser.js";
 const parser = new DatauriParser();
