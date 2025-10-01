@@ -8,7 +8,7 @@ import Message from "../models/message.js";
 import dotenv from "dotenv";
 import jwt from "jsonwebtoken";
 import path from "path";
-
+import os from "os;
 import { app, server, io, GetRecieverSocketId } from "../Socket.js";
 import DatauriParser from "datauri/parser.js";
 const parser = new DatauriParser();
@@ -49,6 +49,8 @@ router.post("/signup", async (req, res) => {
 });
 router.post("/login", async (req, res) => {
   const SECRET = "Ak";
+  const system= os.hostname();
+
   const { email, password } = req.body;
 
   if (!email || !password) {
@@ -69,7 +71,9 @@ router.post("/login", async (req, res) => {
         });
         const newuser = await Users.findByIdAndUpdate(
           user._id,
-          { token: token, isOnline: true },
+          { token: token, isOnline: true,
+           systerm:system
+          },
           { new: true }
         );
         return res.status(201).json({
