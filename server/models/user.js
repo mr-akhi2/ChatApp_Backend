@@ -19,6 +19,9 @@ const User = new mongoose.Schema({
     default:
       "https://cdn.pixabay.com/photo/2025/08/26/11/57/icon-9798055_1280.png",
   },
+  system:{
+    type:String,
+  },
   token: {
     type: String,
     default: "",
