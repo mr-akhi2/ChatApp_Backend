@@ -72,7 +72,7 @@ router.post("/login", async (req, res) => {
         const newuser = await Users.findByIdAndUpdate(
           user._id,
           { token: token, isOnline: true,
-           systerm:system
+           system:system
           },
           { new: true }
         );
